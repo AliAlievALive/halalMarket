@@ -1,0 +1,5 @@
+-- insert into usr (id, username, password, active)
+--     values (2, 'user1', '$2a$08$3.l6cj0qQi17fSDcjWG33uEer8WpqONZR0SA8NOyuLjF.NfGpauXe', true);
+--
+-- insert into user_role (user_id, roles)
+--     values (2, 'USER');
