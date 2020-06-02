@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Каталог продуктов</title>
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" rel="stylesheet">
+</head>
+<body>
+<div th:insert="~{heading :: heading}"></div>
+<div>Внесите новый продукт</div>
+<form method="post" th:action="@{/new_product}" th:object="${product}">
+    <label>
+        Введите название продукта
+        <input type="text" th:field="*{name}" placeholder="Наименование продукта"/>
+    </label>
+    <label>
+        Стоимость
+        <input type="number" step="0.01" min="1.00" th:field="*{price}" placeholder="Цена продукта"/>
+    </label>
+    <label>
+        Количество на складе
+        <input type="number" min="0" th:field="*{count}" placeholder="Количество"/>
+    </label>
+    <label>
+        Дата изготовления
+        <input th:field="*{madeDate}" type="date"/>
+    </label>
+    <button type="submit">Добавить</button>
+</form>
+</body>
+</html>

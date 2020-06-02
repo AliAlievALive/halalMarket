@@ -17,6 +17,14 @@ public class Product {
     public Product() {
     }
 
+    public Product(String name, double price, int count, Date madeDate) {
+        this.name = name;
+        this.price = price;
+        this.count = count;
+        this.madeDate = madeDate;
+        this.isSale = true;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public long getId() {
@@ -53,6 +61,7 @@ public class Product {
 
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "made_date")
     public Date getMadeDate() {
         return madeDate;
     }
