@@ -5,12 +5,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
 import ru.halal.market.model.Product;
 import ru.halal.market.service.impl.ProductServiceImpl;
 
@@ -57,22 +57,39 @@ public class AppController {
         model.addAttribute(product);
         product.setSale(true);
         productService.save(product);
-        return "new_product";
+        return "redirect:/";
     }
 
-    @PostMapping("product_filter")
-    public String childFio(@RequestParam String name,
-                           Model model,
-                           @PageableDefault(sort = {"name"}, direction = Sort.Direction.DESC) Pageable pageable
-    ) {
-//        PageRequest pageRequest = PageRequest.of(pageable.getPageNumber(), 50);
-        Page<Product> page;
-        if (name != null) {
-            page = productService.findByNameContaining(name, pageable);
-        } else {
-            page = productService.findAll(pageable);
-        }
-        model.addAttribute("page", page);
-        return "products";
+    @GetMapping("/edit/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ModelAndView showEditProductForm(@PathVariable(name = "id") Long id) {
+        ModelAndView mav = new ModelAndView("edit_product");
+        Product product = productService.get(id);
+        mav.addObject("product", product);
+        System.out.println(mav);
+        return mav;
     }
+
+    @GetMapping("/delete/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public String deleteProduct(@PathVariable(name = "id") Long id) {
+        productService.delete(id);
+
+        return "redirect:/";
+    }
+//    @PostMapping("product_filter")
+//    public String childFio(@RequestParam String name,
+//                           Model model,
+//                           @PageableDefault(sort = {"name"}, direction = Sort.Direction.DESC) Pageable pageable
+//    ) {
+////        PageRequest pageRequest = PageRequest.of(pageable.getPageNumber(), 50);
+//        Page<Product> page;
+//        if (name != null) {
+//            page = productService.findByNameContaining(name, pageable);
+//        } else {
+//            page = productService.findAll(pageable);
+//        }
+//        model.addAttribute("page", page);
+//        return "products";
+//    }
 }

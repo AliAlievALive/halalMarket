@@ -10,18 +10,28 @@
 <div th:insert="~{parts/heading :: heading}"></div>
 <!--<div th:insert="footer :: (${user.isAdmin}? #{footer.admin} : #{footer.normaluser})"></div>-->
 <div>Каталог продуктов</div>
-<div>
-    <form method="post" action="product_filter">
-        <label>
-            Фильтр
-            <input class="form-control" type="text" name="name">
-        </label>
-        <button type="submit">&#128269;</button>
-    </form>
-</div>
+<!--<div>-->
+<!--    <form method="post" action="product_filter">-->
+<!--        <label>-->
+<!--            Фильтр-->
+<!--            <input class="form-control" type="text" name="name">-->
+<!--        </label>-->
+<!--        <button type="submit">&#128269;</button>-->
+<!--    </form>-->
+<!--</div>-->
 <div th:each="product : ${page.getContent()}">
     <b>[[${product.name}]]</b>
     <span>[[${product.price}]]</span>
+    <i>Готовы к выдаче: [[${product.count}]]</i>
+            <a class="btn btn-warning" th:href="@{'/edit/' + ${product.id}}"
+               type="button">
+                Внести правку
+            </a>
+            <br/><br/>
+            <a class="btn btn-danger" th:href="@{'/delete/' + ${product.id}}"
+               type="button">
+                Удалить материал
+            </a>
 </div>
 </body>
 </html>

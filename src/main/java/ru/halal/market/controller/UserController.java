@@ -49,4 +49,12 @@ public class UserController {
 
         return "redirect:/user";
     }
+
+    @GetMapping("/delete/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public String deleteProduct(@PathVariable(name = "id") Long id) {
+        userService.deleteById(id);
+
+        return "redirect:/user";
+    }
 }

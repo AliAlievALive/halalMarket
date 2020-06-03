@@ -18,11 +18,21 @@ public class ProductServiceImpl implements ProductService {
         return repo.findAll(pageable);
     }
 
+    @Override
+    public Product get(Long id) {
+        return repo.findById(id).get();
+    }
+
+    @Override
+    public void delete(Long id) {
+        repo.deleteById(id);
+    }
+
     public void save(Product product) {
         repo.save(product);
     }
 
-    public Page<Product> findByNameContaining(String name, Pageable pageable) {
+    public Page<Product> findAllByNameContaining(String name, Pageable pageable) {
         return repo.findAllByNameContaining(name, pageable);
     }
 }
