@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Правка пользователя</title>
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" rel="stylesheet">
+
+</head>
+<body>
+<div th:insert="~{parts/heading :: heading}"></div>
+<form action="/user" method="post">
+    <label>
+        <input type="text" name="username" th:value="*{user.username}">
+    </label>
+    <div th:each="role : ${roles}">
+        <label><input type="checkbox" th:name="${role}" th:text="${' ' + role}"></label>
+    </div>
+    <label>
+        <input type="hidden" name="userId" th:value="*{user.id}">
+    </label>
+    <button type="submit">Сохранить</button>
+</form>
+</body>
+</html>

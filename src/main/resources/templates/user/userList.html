@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Список пользователей</title>
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" rel="stylesheet">
+</head>
+<body>
+<div th:insert="~{parts/heading :: heading}"></div>
+<table>
+    <thead>
+    <tr>
+        <th>Login</th>
+        <th>Роль</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.getUsername()}"></td>
+        <td th:each="role : ${user.getRoles()}" th:text="${role} + ' '"></td>
+        <td><a th:if="${!user.username.equals('admin')}" th:href="@{'/user/' + ${user.id}}">Править</a></td>
+        <td><a th:if="${!user.username.equals('admin')}" th:href="@{'/user/delete/' + ${user.id}}">Удалить</a></td>
+    </tr>
+    <a href="/registration">Добавить пользователя</a>
+    </tbody>
+</table>
+</body>
+</html>
