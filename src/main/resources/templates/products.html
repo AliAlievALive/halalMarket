@@ -14,7 +14,7 @@
     <form method="get" action="/">
         <label>
             Фильтр
-            <input class="form-control" type="text" name="filter" value="${filter}">
+            <input class="form-control" type="text" name="filter" th:value="${filter}">
         </label>
         <button type="submit">&#128269;</button>
     </form>
