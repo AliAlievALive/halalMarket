@@ -19,6 +19,7 @@
     </form>
 </div>
 <div class="container mt-5">
+    <div th:insert="~{parts/pagination :: pagination}"></div>
     <h5>Каталог продуктов</h5>
     <div class="card-columns">
         <div class="card border-danger my-3" th:each="product : ${page.getContent()}">

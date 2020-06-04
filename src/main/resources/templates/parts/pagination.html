@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Pagination</title>
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" rel="stylesheet">
+</head>
+<body>
+<div th:fragment="pagination">
+    <ul class="pagination" th:if="${page.getTotalElements()>0}">
+        <li class="page-item disabled"><a class="page-link">Всего вкусностей: [[${page.getTotalElements()}]]</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link">Страница [[${page.getNumber()+1}]] из [[${page.getTotalPages()}]]</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link"
+               th:if="${page.getNumber() > 0}"
+               th:href="${url}+'?page='+${page.getNumber() - 1}">Предыдущая
+            </a>
+            <a class="page-link"
+               th:unless="${page.getNumber() > 0}">Предыдущая
+            </a>
+        </li>
+        <dev th:each="i: ${#numbers.sequence(1, page.getTotalPages())}">
+            <li class="page-item">
+                <a class="page-link"
+                   th:if="${page.getNumber() != i+(-1)}"
+                   th:href="${url}+'?page='+${i+(-1)}"
+                   th:text="${i}">
+                </a>
+                <a class="page-link"
+                   th:unless="${page.getNumber() != i+(-1)}">[[${page.getNumber()+1}]]
+                </a>
+            </li>
+        </dev>
+        <li class="page-item">
+            <a class="page-link"
+               th:if="${page.getNumber() < (page.getTotalPages()-1)}"
+               th:href="${url}+'?page='+${page.getNumber() + 1}">Следующая
+            </a>
+            <a class="page-link"
+               th:unless="${page.getNumber() < (page.getTotalPages()-1)}">Следующая
+            </a>
+        </li>
+    </ul>
+</div>
+</body>
+</html>
