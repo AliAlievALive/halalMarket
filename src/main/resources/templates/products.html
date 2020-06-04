@@ -9,33 +9,41 @@
 <body>
 <div th:insert="~{parts/heading :: heading}"></div>
 <!--<div th:insert="footer :: (${user.isAdmin}? #{footer.admin} : #{footer.normaluser})"></div>-->
-<div>Каталог продуктов</div>
-<div>
-    <form method="get" action="/">
+<div class="container">
+    <form class="form-inline my-2 my-lg-0" method="get" action="/">
         <label>
-            Фильтр
-            <input class="form-control" type="text" name="filter" th:value="${filter}">
+            <input class="form-control mr-sm-2" placeholder="Поиск продукта" type="text" name="filter"
+                   th:value="${filter}">
         </label>
-        <button type="submit">&#128269;</button>
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">&#128269;</button>
     </form>
 </div>
-<div th:each="product : ${page.getContent()}">
-    <b>[[${product.name}]]</b>
-    <span>[[${product.price}]] руб.</span>
-    <div><i>Готовы к выдаче: [[${product.count}]] шт.</i></div>
-    <div th:if="${product.filename}">
-        <img th:src="'/img/'+${product.filename}">
-    </div>
-    <div>
-        <a class="btn btn-warning" th:href="@{'/edit/' + ${product.id}}"
-           type="button">
-            Внести правку
-        </a>
-        <br/><br/>
-        <a class="btn btn-danger" th:href="@{'/delete/' + ${product.id}}"
-           type="button">
-            Удалить материал
-        </a>
+<div class="container mt-5">
+    <h5>Каталог продуктов</h5>
+    <div class="card-columns">
+        <div class="card border-danger my-3" th:each="product : ${page.getContent()}">
+            <div class="card-header">
+                <h5>[[${product.name}]]</h5>
+            </div>
+            <div th:if="${product.filename}">
+                <img class="card-img-top" th:src="'/img/'+${product.filename}">
+            </div>
+            <div class="card-body text-primary">
+                <p class="card-text">[[${product.price}]] руб.</p>
+                <p class="card-text">Готовы к выдаче: [[${product.count}]] шт.</p>
+            </div>
+            <div class="card-body">
+                <a class="btn btn-warning" th:href="@{'/edit/' + ${product.id}}"
+                   type="button">
+                    Внести правку
+                </a>
+                <br/><br/>
+                <a class="btn btn-danger" th:href="@{'/delete/' + ${product.id}}"
+                   type="button">
+                    Удалить материал
+                </a>
+            </div>
+        </div>
     </div>
 </div>
 </body>

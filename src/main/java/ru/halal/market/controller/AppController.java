@@ -91,7 +91,6 @@ public class AppController {
         ModelAndView mav = new ModelAndView("edit_product");
         Product product = productService.get(id);
         mav.addObject("product", product);
-        System.out.println(mav);
         return mav;
     }
 
