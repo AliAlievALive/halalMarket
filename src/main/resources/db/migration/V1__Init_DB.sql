@@ -1,11 +1,12 @@
 create table if not exists product
 (
-    id        bigint  not null,
-    count     integer not null,
-    made_date date    not null,
+    id        bigint       not null,
+    count     integer      not null,
+    made_date date         not null,
     name      varchar(255),
-    price     double  not null,
-    sale      bit     not null,
+    price     double       not null,
+    filename  varchar(255) not null,
+    sale      bit          not null,
     primary key (id)
 ) engine = InnoDB;
 

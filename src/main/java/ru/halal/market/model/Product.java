@@ -14,6 +14,8 @@ public class Product {
     private Date madeDate;
     private boolean isSale;
 
+    private String filename;
+
     public Product() {
     }
 
@@ -76,5 +78,13 @@ public class Product {
 
     public void setSale(boolean sale) {
         isSale = sale;
+    }
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
     }
 }

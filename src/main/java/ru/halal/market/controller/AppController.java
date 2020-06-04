@@ -1,5 +1,6 @@
 package ru.halal.market.controller;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -8,15 +9,23 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import ru.halal.market.model.Product;
 import ru.halal.market.service.impl.ProductServiceImpl;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Date;
+import java.util.Objects;
+import java.util.UUID;
 
 @Controller
 public class AppController {
     private final ProductServiceImpl productService;
+
+    @Value("${upload.path}")
+    private String uploadPath;
 
     public AppController(ProductServiceImpl productService) {
         this.productService = productService;
@@ -53,10 +62,22 @@ public class AppController {
     @PostMapping("new_product")
     public String saveProduct(
             @ModelAttribute Product product,
+            @RequestParam("file") MultipartFile file,
             Model model
-    ) {
+    ) throws IOException {
         if (product.getMadeDate() == null) {
             product.setMadeDate(new Date());
+        }
+        if (file != null && !Objects.requireNonNull(file.getOriginalFilename()).isEmpty()) {
+            File uploadDir = new File(uploadPath);
+            if (!uploadDir.exists()) {
+                uploadDir.mkdir();
+            }
+
+            String uuidFile = UUID.randomUUID().toString();
+            String resultFilename = uuidFile + "." + file.getOriginalFilename();
+            file.transferTo(new File(uploadPath + "/" + resultFilename));
+            product.setFilename(resultFilename);
         }
         model.addAttribute(product);
         product.setSale(true);

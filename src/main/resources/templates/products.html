@@ -21,17 +21,22 @@
 </div>
 <div th:each="product : ${page.getContent()}">
     <b>[[${product.name}]]</b>
-    <span>[[${product.price}]]</span>
-    <i>Готовы к выдаче: [[${product.count}]]</i>
-            <a class="btn btn-warning" th:href="@{'/edit/' + ${product.id}}"
-               type="button">
-                Внести правку
-            </a>
-            <br/><br/>
-            <a class="btn btn-danger" th:href="@{'/delete/' + ${product.id}}"
-               type="button">
-                Удалить материал
-            </a>
+    <span>[[${product.price}]] руб.</span>
+    <div><i>Готовы к выдаче: [[${product.count}]] шт.</i></div>
+    <div th:if="${product.filename}">
+        <img th:src="'/img/'+${product.filename}">
+    </div>
+    <div>
+        <a class="btn btn-warning" th:href="@{'/edit/' + ${product.id}}"
+           type="button">
+            Внести правку
+        </a>
+        <br/><br/>
+        <a class="btn btn-danger" th:href="@{'/delete/' + ${product.id}}"
+           type="button">
+            Удалить материал
+        </a>
+    </div>
 </div>
 </body>
 </html>

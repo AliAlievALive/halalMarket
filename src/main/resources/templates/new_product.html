@@ -9,7 +9,7 @@
 <body>
 <div th:insert="~{parts/heading :: heading}"></div>
 <div>Внесите новый продукт</div>
-<form method="post" th:action="@{/new_product}" th:object="${product}">
+<form method="post" th:action="@{/new_product}" th:object="${product}" enctype="multipart/form-data">
     <label>
         Введите название продукта
         <input type="text" th:field="*{name}" placeholder="Наименование продукта"/>
@@ -22,6 +22,7 @@
         Количество на складе
         <input type="number" min="0" th:field="*{count}" placeholder="Количество"/>
     </label>
+    <input type="file" name="file">
     <label>
         Дата изготовления
         <input th:field="*{madeDate}" type="date"/>
