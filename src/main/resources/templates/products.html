@@ -23,15 +23,17 @@
     <h5>Каталог продуктов</h5>
     <div class="card-columns">
         <div class="card border-danger my-3" th:each="product : ${page.getContent()}">
-            <div class="card-header">
-                <h5>[[${product.name}]]</h5>
-            </div>
-            <div th:if="${product.filename}">
-                <img class="card-img-top" th:src="'/img/'+${product.filename}">
-            </div>
-            <div class="card-body text-primary">
-                <p class="card-text">[[${product.price}]] руб.</p>
-                <p class="card-text">Готовы к выдаче: [[${product.count}]] шт.</p>
+            <div th:if="${product.isSale()}">
+                <div class="card-header">
+                    <h5>[[${product.name}]]</h5>
+                </div>
+                <div th:if="${product.filename}">
+                    <img class="card-img-top" th:src="'/img/'+${product.filename}">
+                </div>
+                <div class="card-body text-primary">
+                    <p class="card-text">[[${product.price}]] руб.</p>
+                    <p class="card-text">Готовы к выдаче: [[${product.count}]] шт.</p>
+                </div>
             </div>
             <div class="card-body">
                 <a class="btn btn-warning" th:href="@{'/edit/' + ${product.id}}"

@@ -19,7 +19,7 @@
             integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
             crossorigin="anonymous"></script>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark mb-5">
         <a class="navbar-brand" href="/"><img src="logo.png" width="200" height="200" alt="logo"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,24 +29,24 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item" th:if="${#httpServletRequest.remoteUser=='admin'}">
-                    <a class="nav-link active" href="user">Управление пользователями<span
+                    <a class="btn btn-outline-success ml-2 mt-2" href="user">Управление пользователями<span
                             class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item" th:if="${#httpServletRequest.remoteUser=='admin'}">
-                    <a class="nav-link active" href="new_product">Добавить продукцию</a>
+                    <a class="btn btn-outline-success ml-2 mt-2" href="new_product">Добавить продукцию</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">Сделать заказ</a>
+                    <a class="btn btn-outline-success ml-2 mt-2" href="#">Сделать заказ</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="../contacts.html">Контакты</a>
+                    <a class="btn btn-outline-success ml-2 mt-2" href="../contacts.html">Контакты</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">О нас</a>
+                    <a class="btn btn-outline-success ml-2 mt-2" href="#">О нас</a>
                 </li>
             </ul>
 
-            <div class="navbar-text mr-2">[[${#httpServletRequest.remoteUser}]]</div>
+            <div style="color: darkgrey" class="navbar-text mr-2">[[${#httpServletRequest.remoteUser}]]</div>
             <div class="my-2 my-lg-0">
                 <a th:if="${#httpServletRequest.remoteUser==null}" class="btn btn-outline-danger my-2 my-sm-0"
                    href="/login">Войти</a>

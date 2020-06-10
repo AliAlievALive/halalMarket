@@ -87,4 +87,17 @@ public class Product {
     public void setFilename(String filename) {
         this.filename = filename;
     }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", count=" + count +
+                ", madeDate=" + madeDate +
+                ", isSale=" + isSale +
+                ", filename='" + filename + '\'' +
+                '}';
+    }
 }

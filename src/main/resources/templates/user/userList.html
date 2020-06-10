@@ -8,6 +8,7 @@
 </head>
 <body>
 <div th:insert="~{parts/heading :: heading}"></div>
+<a href="/registration">Добавить пользователя</a>
 <table>
     <thead>
     <tr>
@@ -23,7 +24,6 @@
         <td><a th:if="${!user.username.equals('admin')}" th:href="@{'/user/' + ${user.id}}">Править</a></td>
         <td><a th:if="${!user.username.equals('admin')}" th:href="@{'/user/delete/' + ${user.id}}">Удалить</a></td>
     </tr>
-    <a href="/registration">Добавить пользователя</a>
     </tbody>
 </table>
 </body>

@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserDetailsService {
         return userRepo.findAll();
     }
 
-    public void saveUser(User user, String username, Map<String, String> form) {
+    public void saveUser(String username, Map<String, String> form, User user) {
         user.setUsername(username);
 
         Set<String> roles = Arrays.stream(Role.values())

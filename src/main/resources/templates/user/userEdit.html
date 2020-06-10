@@ -10,15 +10,20 @@
 <body>
 <div th:insert="~{parts/heading :: heading}"></div>
 <form action="/user" method="post">
-    <label>
-        <input type="text" name="username" th:value="*{user.username}">
-    </label>
-    <div th:each="role : ${roles}">
-        <label><input type="checkbox" th:name="${role}" th:text="${' ' + role}"></label>
-    </div>
-    <label>
-        <input type="hidden" name="userId" th:value="*{user.id}">
-    </label>
+    <input type="text" name="username" th:field="*{user.username}">
+    <ul>
+        <li th:each="role : ${roles}">
+            <label th:text="${role}">ROLE_USER</label>
+            <input type="checkbox" th:name="${role}" th:value="${role}" th:checked="${user.roles.contains(role)}"/>
+        </li>
+    </ul>
+    <!--            <input type="checkbox" name="roles" th:value="${role}" th:if="${user.roles.contains(role)}" checked-->
+    <!--                   th:text="${' ' + role}"/>-->
+    <!--            <input type="checkbox" name="roles" th:value="${role}" th:unless="${user.roles.contains(role)}"-->
+    <!--                   th:text="${' ' + role}"/>-->
+
+    </a>
+    <input type="hidden" name="userId" th:value="*{user.id}">
     <button type="submit">Сохранить</button>
 </form>
 </body>
