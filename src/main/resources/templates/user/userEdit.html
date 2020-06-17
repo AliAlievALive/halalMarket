@@ -10,11 +10,11 @@
 <body>
 <div th:insert="~{parts/heading :: heading}"></div>
 <form action="/user" method="post">
-    <input type="text" name="username" th:field="*{user.username}">
+    <input name="username" th:field="*{user.username}" type="text">
     <ul>
         <li th:each="role : ${roles}">
             <label th:text="${role}">ROLE_USER</label>
-            <input type="checkbox" th:name="${role}" th:value="${role}" th:checked="${user.roles.contains(role)}"/>
+            <input th:checked="${user.roles.contains(role)}" th:name="${role}" th:value="${role}" type="checkbox"/>
         </li>
     </ul>
     <!--            <input type="checkbox" name="roles" th:value="${role}" th:if="${user.roles.contains(role)}" checked-->
@@ -23,7 +23,7 @@
     <!--                   th:text="${' ' + role}"/>-->
 
     </a>
-    <input type="hidden" name="userId" th:value="*{user.id}">
+    <input name="userId" th:value="*{user.id}" type="hidden">
     <button type="submit">Сохранить</button>
 </form>
 </body>

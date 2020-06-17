@@ -16,8 +16,8 @@
         </li>
         <li class="page-item">
             <a class="page-link"
-               th:if="${page.getNumber() > 0}"
-               th:href="${url}+'?page='+${page.getNumber() - 1}">Предыдущая
+               th:href="${url}+'?page='+${page.getNumber() - 1}"
+               th:if="${page.getNumber() > 0}">Предыдущая
             </a>
             <a class="page-link"
                th:unless="${page.getNumber() > 0}">Предыдущая
@@ -26,8 +26,8 @@
         <dev th:each="i: ${#numbers.sequence(1, page.getTotalPages())}">
             <li class="page-item">
                 <a class="page-link"
-                   th:if="${page.getNumber() != i+(-1)}"
                    th:href="${url}+'?page='+${i+(-1)}"
+                   th:if="${page.getNumber() != i+(-1)}"
                    th:text="${i}">
                 </a>
                 <a class="page-link"
@@ -37,8 +37,8 @@
         </dev>
         <li class="page-item">
             <a class="page-link"
-               th:if="${page.getNumber() < (page.getTotalPages()-1)}"
-               th:href="${url}+'?page='+${page.getNumber() + 1}">Следующая
+               th:href="${url}+'?page='+${page.getNumber() + 1}"
+               th:if="${page.getNumber() < (page.getTotalPages()-1)}">Следующая
             </a>
             <a class="page-link"
                th:unless="${page.getNumber() < (page.getTotalPages()-1)}">Следующая

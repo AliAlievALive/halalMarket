@@ -5,7 +5,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,9 +16,6 @@ import ru.halal.market.service.impl.ProductServiceImpl;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
@@ -66,10 +62,10 @@ public class AppController {
     @PostMapping("new_product")
     public String saveProduct(
             @ModelAttribute Product product,
-            @RequestParam("file") MultipartFile file,
+            @RequestParam("customFile") MultipartFile file,
             Model model
     ) throws IOException {
-        System.out.println(product);
+        System.out.println(product.getFilename());
         if (product.getMadeDate() == null) {
             product.setMadeDate(new Date());
         }
@@ -81,8 +77,7 @@ public class AppController {
             if (!uploadDir.exists()) {
                 uploadDir.mkdir();
             }
-            String uuidFile = UUID.randomUUID().toString();
-            String resultFilename = uuidFile + "." + file.getOriginalFilename();
+            String resultFilename = file.getOriginalFilename();
             file.transferTo(new File(uploadPath + "/" + resultFilename));
             product.setFilename(resultFilename);
         }
@@ -96,26 +91,10 @@ public class AppController {
     @PreAuthorize("hasAuthority('ADMIN')")
     public ModelAndView showEditProductForm(
             @PathVariable(name = "id") Long id
-//            , @RequestParam("file") MultipartFile file
     ) {
-        ModelAndView mav = new ModelAndView("edit_product");
         Product product = productService.get(id);
+        ModelAndView mav = new ModelAndView("edit_product");
         mav.addObject("product", product);
-        if (product.getFilename() == null) {
-            product.setFilename("logo.png");
-        }
-        Path path = Paths.get("uploads/" + product.getFilename());
-        String name = product.getFilename();
-        String originalFileName = product.getFilename();
-        String contentType = "text/plain";
-        byte[] content = null;
-        try {
-            content = Files.readAllBytes(path);
-        } catch (final IOException e) {
-            System.out.println(e);
-        }
-        MultipartFile result = new MockMultipartFile(name, originalFileName, contentType, content);
-        mav.addObject("file", result);
         return mav;
     }
 
@@ -126,19 +105,4 @@ public class AppController {
 
         return "redirect:/";
     }
-//    @PostMapping("product_filter")
-//    public String childFio(@RequestParam String name,
-//                           Model model,
-//                           @PageableDefault(sort = {"name"}, direction = Sort.Direction.DESC) Pageable pageable
-//    ) {
-////        PageRequest pageRequest = PageRequest.of(pageable.getPageNumber(), 50);
-//        Page<Product> page;
-//        if (name != null) {
-//            page = productService.findByNameContaining(name, pageable);
-//        } else {
-//            page = productService.findAll(pageable);
-//        }
-//        model.addAttribute("page", page);
-//        return "products";
-//    }
 }

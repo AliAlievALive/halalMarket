@@ -8,9 +8,30 @@
 </head>
 <body>
 <div th:insert="~{parts/heading :: heading}"></div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#customFile').change(function () {
+            showImageThumbnail(this);
+        });
+    });
+
+    function showImageThumbnail(customFile) {
+        file = customFile.files[0];
+        reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#thumbnail').attr('src', e.target.result);
+        };
+
+        reader.readAsDataURL(file);
+    }
+</script>
+
 <div class="container">
     <h5 class="mt-2" th:align="center">Изменение продукта</h5>
-    <form class="form-group mt-3" method="post" th:action="@{/new_product}" th:object="${product}" enctype="multipart/form-data">
+    <form class="form-group mt-3" enctype="multipart/form-data" method="post" th:action="@{/new_product}"
+          th:object="${product}">
         <input th:field="*{id}" type="hidden"/>
         <div class="form-group">
             <label>Дата изготовления
@@ -19,26 +40,30 @@
         </div>
         <div class="form-group">
             <label>Введите название продукта:
-                <input class="form-control" type="text" th:field="*{name}" placeholder="Наименование продукта"/>
+                <input class="form-control" placeholder="Наименование продукта" th:field="*{name}" type="text"/>
             </label>
         </div>
         <div class="form-group">
             <label>Стоимость:
-                <input class="form-control" type="number" step="0.01" min="1.00" th:field="*{price}"
-                       placeholder="Цена продукта"/>
+                <input class="form-control" min="1.00" placeholder="Цена продукта" step="0.01" th:field="*{price}"
+                       type="number"/>
             </label>
         </div>
         <div class="form-group">
             <label>Количество на складе:
-                <input class="form-control" type="number" min="0" th:field="*{count}" placeholder="Количество"/>
+                <input class="form-control" min="0" placeholder="Количество" th:field="*{count}" type="number"/>
             </label>
         </div>
         <div class="form-group">
             <a>Изображение продукта</a>
             <div class="custom-file mt-1">
-                <input type="file" name="file" id="customFile">
+                <input accept="image/png, image/jpeg" id="customFile" name="customFile" type="file">
                 <label class="custom-file-label" for="customFile">Выберите фотографию</label>
             </div>
+            <p>
+                <img alt="Logo Preview" class="mt-5" height="300" id="thumbnail">
+            </p>
+            <input th:field="*{filename}" type="hidden"/>
         </div>
         <button type="submit">Изменить</button>
     </form>

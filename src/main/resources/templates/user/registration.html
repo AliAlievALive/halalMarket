@@ -9,9 +9,9 @@
 <div th:insert="~{parts/heading :: heading}"></div>
 Добавление нового пользователя
 <div th:if="message">[[${message}]]</div>
-<form th:action="@{/registration}" method="post">
-    <div><label> User Name : <input type="text" name="username"/> </label></div>
-    <div><label> Password: <input type="password" name="password"/> </label></div>
+<form method="post" th:action="@{/registration}">
+    <div><label> User Name : <input name="username" type="text"/> </label></div>
+    <div><label> Password: <input name="password" type="password"/> </label></div>
     <div><input type="submit" value="Добавить"/></div>
 </form>
 </body>
