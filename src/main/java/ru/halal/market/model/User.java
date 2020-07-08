@@ -14,9 +14,13 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     private String username;
     private String password;
     private boolean active;
+
+    @OneToMany(targetEntity = Garbage.class, mappedBy = "buyer", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<Garbage> orders;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
@@ -95,6 +99,14 @@ public class User implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return getRoles();
+    }
+
+    public Set<Garbage> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<Garbage> orders) {
+        this.orders = orders;
     }
 
     @Override

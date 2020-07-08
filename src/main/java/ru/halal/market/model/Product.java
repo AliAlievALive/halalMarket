@@ -3,38 +3,42 @@ package ru.halal.market.model;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Date;
 
 @Entity
 public class Product {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
+    @OneToMany (mappedBy="product", fetch=FetchType.EAGER)
+    private Collection<ItemInGarbage> itemInGarbage;
+
     private String name;
     private double price;
     private int count;
     private Date madeDate;
     private boolean isSale;
-
     private String filename;
 
     public Product() {
     }
 
-    public Product(String name, double price, int count, Date madeDate) {
-        this.name = name;
-        this.price = price;
-        this.count = count;
-        this.madeDate = madeDate;
-        this.isSale = true;
-    }
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     public long getId() {
         return id;
     }
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public Collection<ItemInGarbage> getItemInGarbage() {
+        return itemInGarbage;
+    }
+
+    public void setItemInGarbage(Collection<ItemInGarbage> itemInGarbage) {
+        this.itemInGarbage = itemInGarbage;
     }
 
     public String getName() {

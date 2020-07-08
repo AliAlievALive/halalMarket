@@ -35,6 +35,9 @@
                     <p class="card-text">Готовы к выдаче: [[${product.count}]] шт.</p>
                 </div>
             </div>
+<!--            <div>-->
+<!--                <input th:field="*{product.count}" type="text"/>-->
+<!--            </div>-->
             <div class="card-body">
                 <a class="btn btn-warning" th:href="@{'/edit/' + ${product.id}}"
                    type="button">
