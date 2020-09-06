@@ -5,4 +5,6 @@ import ru.halal.market.model.User;
 
 public interface UserRepo extends JpaRepository<User, Long> {
     User findByUsername(String username);
+
+    User findUserById(long buyer_id);
 }

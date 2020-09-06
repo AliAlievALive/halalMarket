@@ -96,6 +96,7 @@ public class Product {
     public String toString() {
         return "Product{" +
                 "id=" + id +
+                ", itemInGarbage=" + itemInGarbage +
                 ", name='" + name + '\'' +
                 ", price=" + price +
                 ", count=" + count +

@@ -34,10 +34,16 @@
                     <p class="card-text">[[${product.price}]] руб.</p>
                     <p class="card-text">Готовы к выдаче: [[${product.count}]] шт.</p>
                 </div>
+                <div class="card-body">
+                    <a class="btn btn-primary" th:href="@{'/cart/product_add_to_cart/' + ${product}}"
+                       type="button">
+                        Добавить в корзину
+                    </a>
+                </div>
             </div>
-<!--            <div>-->
-<!--                <input th:field="*{product.count}" type="text"/>-->
-<!--            </div>-->
+
+
+
             <div class="card-body">
                 <a class="btn btn-warning" th:href="@{'/edit/' + ${product.id}}"
                    type="button">

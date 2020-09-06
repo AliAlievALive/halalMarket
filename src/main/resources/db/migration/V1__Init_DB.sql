@@ -33,6 +33,7 @@ create table if not exists garbage
     price                       double precision not null,
     time_to_order_must_be_ready datetime(6)      not null,
     buyer_id                    bigint           not null,
+    done                        bit              not null,
     primary key (id)
 ) engine = InnoDB;
 

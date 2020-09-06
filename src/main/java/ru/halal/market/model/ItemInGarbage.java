@@ -21,6 +21,12 @@ public class ItemInGarbage {
     public ItemInGarbage() {
     }
 
+    public ItemInGarbage(Product product, int count, Garbage purchase) {
+        this.product = product;
+        this.count = count;
+        this.purchase = purchase;
+    }
+
     public long getId() {
         return id;
     }
@@ -51,5 +57,15 @@ public class ItemInGarbage {
 
     public void setPurchase(Garbage garbage) {
         this.purchase = garbage;
+    }
+
+    @Override
+    public String toString() {
+        return "ItemInGarbage{" +
+                "id=" + id +
+                ", product=" + product +
+                ", count=" + count +
+                ", purchase=" + purchase +
+                '}';
     }
 }

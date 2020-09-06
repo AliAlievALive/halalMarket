@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Корзина покупателя</title>
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" rel="stylesheet">
+</head>
+<body>
+<div th:insert="~{parts/heading :: heading}"></div>
+<!--<div th:insert="footer :: (${user.isAdmin}? #{footer.admin} : #{footer.normaluser})"></div>-->
+
+<!--/////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<div class="container">
+    <form class="form-group" enctype="multipart/form-data" method="post" th:action="@{/new_cart}"
+          th:object="${cart}">
+        <div class="form-group">
+            <label>Дата изготовления
+                <input class="form-control mb-2" th:field="*{madeDate}" type="date"/>
+            </label>
+        </div>
+        <div class="form-group">
+            <label>Введите название продукта:
+                <input class="form-control" placeholder="Наименование продукта" th:field="*{name}" type="text"/>
+            </label>
+        </div>
+        <div class="form-group">
+            <label>Стоимость:
+                <input class="form-control" min="1.00" placeholder="Цена продукта" step="0.01" th:field="*{price}"
+                       type="number"/>
+            </label>
+        </div>
+        <div class="form-group">
+            <label>Количество на складе:
+                <input class="form-control" min="0" placeholder="Количество" th:field="*{count}" type="number"/>
+            </label>
+        </div>
+        <div class="form-group">
+            <a>Изображение продукта</a>
+            <div class="custom-file mt-1">
+                <input accept="image/png, image/jpeg" id="customFile" name="customFile" type="file">
+                <label class="custom-file-label" for="customFile">Выберите фотографию</label>
+            </div>
+            <p>
+                <img alt="Logo Preview" class="mt-5" height="300" id="thumbnail">
+            </p>
+        </div>
+        <button class="btn btn-primary mt-5" type="submit">Добавить</button>
+    </form>
+<!--/////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+</body>
+</html>

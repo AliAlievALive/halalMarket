@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -20,7 +21,7 @@ public class User implements UserDetails {
     private boolean active;
 
     @OneToMany(targetEntity = Garbage.class, mappedBy = "buyer", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<Garbage> orders;
+    private Set<Garbage> orders = new HashSet<>();
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
@@ -112,7 +113,12 @@ public class User implements UserDetails {
     @Override
     public String toString() {
         return "User{" +
-                "username='" + username + '\'' +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", active=" + active +
+                ", orders=" + orders +
+                ", roles=" + roles +
                 '}';
     }
 }

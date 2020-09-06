@@ -79,4 +79,8 @@ public class UserServiceImpl implements UserDetailsService {
     public void deleteById(Long id) {
         userRepo.deleteById(id);
     }
+
+    public User findUserById(Long id) {
+        return userRepo.findUserById(id);
+    }
 }
